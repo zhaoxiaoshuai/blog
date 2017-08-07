@@ -72,6 +72,7 @@
 </header>
 <aside class="Hui-aside">
     <div class="menu_dropdown bk_2">
+
         {// 根据配置文件生成左侧导航栏}
         <php>$nav = C('NAV')</php>
         <foreach name="nav" item="v" key="k">
@@ -86,7 +87,6 @@
                 </dd>
             </dl>
         </foreach>
-
     </div>
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
