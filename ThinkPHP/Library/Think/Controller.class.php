@@ -294,6 +294,17 @@ abstract class Controller {
         }
     }
 
+    /**
+     * 以关联数组形式把变量传递给模版
+     * @param array $arr
+     * @return $this
+     */
+    public function set(Array $arr)
+    {
+        $this -> view -> set($arr);
+        return $this;
+    }
+
    /**
      * 析构方法
      * @access public
