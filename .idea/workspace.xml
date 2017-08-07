@@ -120,7 +120,7 @@
     </replaceStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -459,12 +459,12 @@
       <workItem from="1501828422813" duration="4342000" />
       <workItem from="1501906152527" duration="10550000" />
       <workItem from="1502003382141" duration="2295000" />
-      <workItem from="1502079389315" duration="1216000" />
+      <workItem from="1502079389315" duration="1587000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38559000" />
+    <option name="totallyTimeSpent" value="38930000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="0" width="1924" height="1038" extended-state="0" />
