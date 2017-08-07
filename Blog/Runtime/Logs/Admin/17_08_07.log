@@ -229,3 +229,140 @@ INFO: [ app_end ] --START--
 INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000713s ]
 INFO: [ app_end ] --END-- [ RunTime:0.000743s ]
 
+[ 2017-08-07T12:59:52+08:00 ] 192.168.137.1 /admin
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000006s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000140s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000180s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000199s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.101560s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.101604s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.107783s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.107804s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000098s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000117s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000386s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000410s ]
+
+[ 2017-08-07T12:59:52+08:00 ] 192.168.137.1 /admin/index/welcome.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000006s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000143s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000355s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000375s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000084s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000149s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.023128s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.023187s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000076s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000090s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000274s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000290s ]
+
+[ 2017-08-07T13:00:01+08:00 ] 192.168.137.1 /admin/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000006s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000141s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000188s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000208s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000029s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000047s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.002076s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.002092s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000059s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000070s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000380s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000395s ]
+
+[ 2017-08-07T13:00:01+08:00 ] 192.168.137.1 /Admin/code/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000007s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000151s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000186s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000204s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000246s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000277s ]
+
+[ 2017-08-07T13:00:09+08:00 ] 192.168.137.1 /Admin/code/index?a=0.6879885918069161
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000007s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000177s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000227s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000248s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000311s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000338s ]
+
+[ 2017-08-07T13:00:10+08:00 ] 192.168.137.1 /Admin/code/index?a=0.6879885918069161?a=0.7920018532955513
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000007s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000154s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000200s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000231s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000194s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000214s ]
+
+[ 2017-08-07T13:00:10+08:00 ] 192.168.137.1 /Admin/code/index?a=0.6879885918069161?a=0.7920018532955513?a=0.22579028510604
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000164s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000204s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000224s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000246s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000271s ]
+
+[ 2017-08-07T13:00:11+08:00 ] 192.168.137.1 /Admin/code/index?a=0.6879885918069161?a=0.7920018532955513?a=0.22579028510604?a=0.701866409634672
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000007s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000175s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000219s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000241s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000193s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000213s ]
+
+[ 2017-08-07T13:00:12+08:00 ] 192.168.137.1 /Admin/code/index?a=0.6879885918069161?a=0.7920018532955513?a=0.22579028510604?a=0.701866409634672?a=0.43037385724674654
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000007s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000193s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000169s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000186s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000197s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000217s ]
+
+[ 2017-08-07T13:00:12+08:00 ] 192.168.137.1 /Admin/code/index?a=0.6879885918069161?a=0.7920018532955513?a=0.22579028510604?a=0.701866409634672?a=0.43037385724674654?a=0.1988215158914734
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000007s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000153s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000230s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000251s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000485s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000516s ]
+

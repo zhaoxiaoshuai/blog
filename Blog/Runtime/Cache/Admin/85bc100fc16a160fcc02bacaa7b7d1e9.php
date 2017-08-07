@@ -43,7 +43,7 @@
       <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
           <input class="input-text size-L" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
-          <img src="/index.php/Admin/code/index" title="点击更换验证码" onclick="this.src=this.src+'?a='+Math.random()">
+          <img src="/Admin/code/index" title="点击更换验证码" onclick="this.src=this.src+'?a='+Math.random()">
 
       </div>
       <div class="row cl">
