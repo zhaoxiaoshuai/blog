@@ -42,6 +42,15 @@ class View {
     }
 
     /**
+     * 批量赋值给模版
+     * @param array $arr
+     */
+    public function set(Array $arr)
+    {
+        $this -> tVar = array_merge($this -> tVar, $arr);
+    }
+
+    /**
      * 取得模板变量的值
      * @access public
      * @param string $name

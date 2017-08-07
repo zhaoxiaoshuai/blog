@@ -100,6 +100,12 @@ return  array(
     'SESSION_PREFIX'        =>  '', // session 前缀
     //'VAR_SESSION_ID'      =>  'session_id',     //sessionID的提交变量
 
+    /**
+     * 调试条设置
+     */
+    'SHOW_PAGE_TRACE' =>true,
+    'TRACE_PAGE_TABS'=>array(    'base'=>'基本',     'file'=>'文件',     'think'=>'流程',     'error'=>'错误',     'sql'=>'SQL',     'debug'=>'调试'),
+
     /* 模板引擎设置 */
     'TMPL_CONTENT_TYPE'     =>  'text/html', // 默认模板输出类型
     'TMPL_ACTION_ERROR'     =>  THINK_PATH.'Tpl/dispatch_jump.tpl', // 默认错误跳转对应的模板文件
