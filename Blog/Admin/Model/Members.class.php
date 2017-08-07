@@ -18,7 +18,7 @@ class Members extends RelationModel
             'MemberDetails'=> array(
                 'mapping_type' => self::HAS_ONE,
                 'foreign_key' => 'id',
-                'as_fields' => 'sex,birth'
+                'as_fields' => 'sex,birth,lasttime,ctime'
             ),
         );
 }
