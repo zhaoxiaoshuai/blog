@@ -19,6 +19,9 @@ return array(
             '导航列表' => '/admin/article/index',
             '添加导航' => '/admin/article/add',
         ),
+        '管理员管理' => array(
+            '管理员列表' => '/admin/admin/index',
+        ),
     ),
     'SEX' => array(
         'm' => '男',

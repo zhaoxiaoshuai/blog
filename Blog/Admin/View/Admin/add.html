@@ -88,22 +88,21 @@
                         type: 'post',
                         url: "{:U('admin/admin/insert')}" ,
                         success: function(data){
-                            if(data != '添加成功'){
-                                layer.msg(data,{icon:2,time:2000});
-//                                console.log(data);
-                                parent.location.href="{:U(admin/admin/index)}";
+                            if(data['status'] == '0'){
+                                layer.msg(data['msg'],{icon:1,time:2000});
+                                var index = parent.layer.getFrameIndex(window.name);
+                                window.parent.location.href = "{:U('admin/admin/index')}";
+                                parent.$('.btn-refresh').click();
+                                parent.layer.close(index);
 							}else{
-                                layer.msg(data,{icon:1,time:2000});
-//                                console.log(data);
+                                layer.msg(data['msg'],{icon:2,time:2000});
 							};
                         },
                         error: function(XmlHttpRequest, textStatus, errorThrown){
                             layer.msg('error!',{icon:1,time:2000});
                         }
                     });
-                    var index = parent.layer.getFrameIndex(window.name);
-                    parent.$('.btn-refresh').click();
-                    parent.layer.close(index);
+
                 }
             });
         });
