@@ -43,6 +43,11 @@ class CateController extends Controller
             ] );
 
         $d = new CateModel();
+        if($d -> where("id={$id}") -> count())
+            $this -> ajaxReturn( [
+                'status' => 401,
+                'msg' => '父级不存在，不要逗我玩。'
+            ] );
         if($d -> where("id={$id} AND name='{$name}'") -> count())
             $this -> ajaxReturn( [
                 'status' => 402,
