@@ -1,0 +1,111 @@
+<extend name="Layout:index" />
+
+<block name="content">
+	<article class="page-container">
+		<form class="form form-horizontal" id="form-admin-add" action="{:U('/admin/member/insert')}" method="post">
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="repassword" name="repassword">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" placeholder="@" name="email" id="email">
+				</div>
+			</div>
+			<div class="row cl">
+				<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+					<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				</div>
+			</div>
+		</form>
+	</article>
+</block>
+
+<block name="js">
+	<script type="text/javascript">
+        $(function(){
+            $('.skin-minimal input').iCheck({
+                checkboxClass: 'icheckbox-blue',
+                radioClass: 'iradio-blue',
+                increaseArea: '20%'
+            });
+
+            $("#form-admin-add").validate({
+                rules:{
+                    adminName:{
+                        required:true,
+                        minlength:4,
+                        maxlength:16
+                    },
+                    password:{
+                        required:true,
+                    },
+                    password2:{
+                        required:true,
+                        equalTo: "#password"
+                    },
+                    sex:{
+                        required:true,
+                    },
+                    phone:{
+                        required:true,
+                        isPhone:true,
+                    },
+                    email:{
+                        required:true,
+                        email:true,
+                    },
+                    adminRole:{
+                        required:true,
+                    },
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "{:U('admin/member/insert')}" ,
+                        success: function(data){
+                            if(data.status){
+                                parent.layer.msg(data.msg,{icon:2,time:2000});
+                            } else {
+                                parent.layer.msg(data.msg,{icon:1,time:2000});
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.$('.btn-refresh').click();
+                                parent.layer.close(index);
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.$('.btn-refresh').click();
+                            parent.layer.close(index);
+                        }
+                    });
+                }
+            });
+        });
+	</script>
+</block>

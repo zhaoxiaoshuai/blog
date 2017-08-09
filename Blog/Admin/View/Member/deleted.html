@@ -1,7 +1,9 @@
 <extend name="Layout:index" />
 
 <block name="content">
-    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 删除的用户<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 删除的用户<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
     <div class="page-container">
         <div class="text-c"> 日期范围：
             <literal>
@@ -41,7 +43,7 @@
                         <td class="text-l">北京市 海淀区</td>
                         <td>{$v['ctime'] | date='Y-m-d H:i:s',###}</td>
                         <td class="td-status"><span class="label {:C('STATUS_ICON')[$v['status']]} radius"> {:C('STATUS')[$v['status']]} </span></td>
-                        <td class="td-manage"><a style="text-decoration:none" href="javascript:;" onclick="member_huanyuan(this,'1')" title="还原"><i class="Hui-iconfont"></i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont"></i></a></td>
+                        <td class="td-manage"><a style="text-decoration:none" href="javascript:;" onclick="member_huanyuan(this,'{$v[\'id\']}')" title="还原"><i class="Hui-iconfont"></i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'{$v[\'id\']}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont"></i></a></td>
                     </tr>
                 </foreach>
                 </tbody>
@@ -74,9 +76,14 @@
         /*用户-还原*/
         function member_huanyuan(obj,id){
             layer.confirm('确认要还原吗？',function(index){
-
-                $(obj).remove();
-                layer.msg('已还原!',{icon: 6,time:1000});
+                $.get('{:U(\'/admin/member/recovery\')}',{name:id},function(data){
+                    if(data.status){
+                        layer.msg(data.msg,{icon:5,time:1000});
+                        return false;
+                    }
+                    $(obj).parents("tr").remove();
+                    layer.msg(data.msg,{icon: 6,time:1000});
+                });
             });
         }
 
@@ -85,15 +92,22 @@
             layer.confirm('确认要删除吗？',function(index){
                 $.ajax({
                     type: 'POST',
-                    url: '',
+                    url: '{:U(\'/admin/member/del\')}',
                     dataType: 'json',
+                    data: {
+                        name: id
+                    },
                     success: function(data){
+                        if(data.status) {
+                            return;
+                        }
+
                         $(obj).parents("tr").remove();
                         layer.msg('已删除!',{icon:1,time:1000});
                     },
                     error:function(data) {
-                        console.log(data.msg);
-                    },
+                        layer.msg('网络错误。');
+                    }
                 });
             });
         }
