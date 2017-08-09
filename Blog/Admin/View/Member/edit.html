@@ -1,0 +1,126 @@
+<extend name="Layout:index" />
+
+<block name="content">
+    <article class="page-container">
+        <form action="" method="post" class="form form-horizontal" id="form-member-add">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="{$data['username']}" disabled placeholder="" id="username" name="username">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
+                <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                    <php>$sex=C('SEX')</php>
+                    <foreach name="sex" item="v" key="k">
+                        <div class="radio-box">
+                            <input name="sex" type="radio" id="sex-{$k}" {$k==$data['sex']?'checked':''} value="{$k}">
+                            <label for="sex-{$k}">{$v}</label>
+                        </div>
+                    </foreach>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="{$data['phone']}" placeholder="" id="mobile" name="mobile">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" placeholder="@" name="email" id="email" value="{$data['email']}">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3">生日：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" <literal>onfocus="WdatePicker({skin:'whyGreen',maxDate:'%y-%M-%d'})"</literal> id="birth" readonly value="{:date('Y-m-d', $data['birth'])}" {$data['birth']} name="birth" class="input-text Wdate" style="width:120px;">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3">地址：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" placeholder="@" name="addr" id="addr" value="{$data['addr']}">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3">备注：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <textarea name="description" cols="" rows="" class="textarea"  placeholder="{$data['description']?'输入内容至少10个字符。':C('DESCRIPTION')}" onKeyUp="$.Huitextarealength(this,100)">{$data['description']}</textarea>
+                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                </div>
+            </div>
+        </form>
+    </article>
+</block>
+
+<block name="js">
+    <script type="text/javascript" src="__PUBLIC__/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.skin-minimal input').iCheck({
+                checkboxClass: 'icheckbox-blue',
+                radioClass: 'iradio-blue',
+                increaseArea: '20%'
+            });
+
+            $("#form-member-add").validate({
+                rules:{
+                    username:{
+                        required:true,
+                        minlength:2,
+                        maxlength:16
+                    },
+                    mobile:{
+                        required:true,
+                        isMobile:true,
+                        maxlength:11,
+                        minlength:11
+                    },
+                    email:{
+                        required:true,
+                        email:true
+                    },
+                    birth:{
+                        required:true
+                    },
+                    addr:{
+                        required:true
+                    },
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "{:U('admin/member/update')}?name={$data['id']}" ,
+                        success: function(data){
+                            if(data.status){
+                                layer.msg(data.msg,{icon:2,time:2000});
+                            }else{
+                                layer.msg(data.msg,{icon:1,time:2000});
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.$('.btn-refresh').click();
+                                parent.layer.close(index);
+                            }
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!网络出错了，重新试试。',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</block>
