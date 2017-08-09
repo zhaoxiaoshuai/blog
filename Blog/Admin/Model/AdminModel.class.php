@@ -2,6 +2,6 @@
 namespace Admin\Model;
 use Think\Model;
 
-class Admin extends Model {
+class AdminModel extends Model {
     protected $tableName = 'admin';
 }

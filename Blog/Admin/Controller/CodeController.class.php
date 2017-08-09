@@ -11,12 +11,12 @@ class CodeController extends Controller {
             'useNoise'    =>    false,  // 关闭验证码杂点
             'imageW'      =>    140,    // 图片宽度
             'imageH'      =>    40,     // 图片高度
-        );
-        $Verify = new \Think\Verify($config);
+        );   $Verify = new \Think\Verify($config);
         $Verify->entry();
     }
     //验证码验证
-    public function check(){
+    public static function _check($code, $id = '')
+    {
         $verify = new \Think\Verify();
         return $verify->check($code, $id);
     }

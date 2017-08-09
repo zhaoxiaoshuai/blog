@@ -82,7 +82,7 @@ class Verify {
      * @param string $id 验证码标识     
      * @return bool 用户验证码是否正确
      */
-    public function check($code, $id = '') {
+    public function     check($code, $id = '') {
         $key = $this->authcode($this->seKey).$id;
         // 验证码不能为空
         $secode = session($key);

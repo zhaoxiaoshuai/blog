@@ -14,6 +14,16 @@
 <link href="__PUBLIC__/static/h-ui.admin/css/H-ui.login.css" rel="stylesheet" type="text/css" />
 <link href="__PUBLIC__/static/h-ui.admin/css/style.css" rel="stylesheet" type="text/css" />
 <link href="__PUBLIC__/lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css" />
+  <style>
+    #loginform input+label{
+      right:65px;
+      top:10px;
+    }
+    #loginform input[name=code]+label{
+      right:275px;
+      top:10px;
+    }
+  </style>
 <!--[if IE 6]>
 <script type="text/javascript" src="__PUBLIC__/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -27,24 +37,23 @@
 <div class="header"></div>
 <div class="loginWraper">
   <div id="loginform" class="loginBox">
-    <form class="form form-horizontal" action="index.html" method="post">
+    <form class="form form-horizontal" id="form-admin-add"  method="post">
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
         <div class="formControls col-xs-8">
-          <input id="" name="" type="text" placeholder="账户" class="input-text size-L">
+          <input id="" name="username" type="text" placeholder="账户" class="input-text size-L">
         </div>
       </div>
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
         <div class="formControls col-xs-8">
-          <input id="" name="" type="password" placeholder="密码" class="input-text size-L">
+          <input id="" name="password" type="password" placeholder="密码" class="input-text size-L">
         </div>
       </div>
       <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
-          <input class="input-text size-L" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
-          <img src="__MODULE__/code/index" title="点击更换验证码" onclick="this.src=this.src+'?a='+Math.random()">
-
+          <input class="input-text size-L" name="code" type="text" placeholder="验证码"  value="" style="width:150px;">
+          <img src="{:U('/admin/code')}" title="点击更换验证码" onclick="this.src='{:U(\'/admin/code\')}?a='+Math.random()">
       </div>
       <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
@@ -65,6 +74,60 @@
 <div class="footer">Copyright 你的公司名称 by H-ui.admin v3.0</div>
 <script type="text/javascript" src="__PUBLIC__/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<if condition="session('error') !== null">
+  <script>
+      layer.msg('{:flu(\'error\')}',<literal>{icon:2,time:2000});</literal>
+  </script>
+</if>
+<script>
+    $("#form-admin-add").validate({
+        rules:{
+            username:{
+                required:true,
+                minlength:4,
+                maxlength:16
+            },
+            password:{
+                required:true,
+            },
+            code:{
+                required:true,
+                maxlength:16
+            },
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            $(form).ajaxSubmit({
+                type: 'post',
+                url: "{:U('admin/login/dologin')}",
+                success: function(data){
+                    if(data['status']){
+                        layer.msg(data['msg'],{icon:2,time:2000});
+                        $('img[title="点击更换验证码"]').attr('src','{:U(\'/admin/code\')}?a='+Math.random());
+                    }else{
+                        layer.msg(data['msg'],{icon:1,time:2000});
+                        var index = parent.layer.getFrameIndex(window.name);
+                        setTimeout(function(){
+                            location.href = "{:U('admin/index/index')}";
+                        },1000);
+                        parent.$('.btn-refresh').click();
+                        parent.layer.close(index);
+                    }
+                },
+                error: function(XmlHttpRequest, textStatus, errorThrown){
+                    layer.msg('error!',{icon:1,time:2000});
+                }
+            });
 
+        }
+    });
+
+</script>
 </body>
 </html>

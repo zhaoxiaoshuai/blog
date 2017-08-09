@@ -1,40 +1,29 @@
 <extend name="Layout:index" />
+
 <block name="content">
 	<article class="page-container">
 		<form class="form form-horizontal" id="form-admin-add">
 			<div class="row cl">
 				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-				</div>
-			</div>
-			<div class="row cl">
-				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
-				<div class="formControls col-xs-8 col-sm-9">
-					<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
-				</div>
-			</div>
-			<div class="row cl">
-				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
-				<div class="formControls col-xs-8 col-sm-9">
-					<input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="repassword" name="repassword">
+					<input type="text" class="input-text" value="{$user['username']}" placeholder="" id="username" name="username">
 				</div>
 			</div>
 			<div class="row cl">
 				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
+					<input type="text" class="input-text" value="{$user['phone']}" placeholder="" id="phone" name="phone">
 				</div>
 			</div>
 			<div class="row cl">
 				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" placeholder="@" name="email" id="email">
+					<input type="text" class="input-text" value="{$user['email']}" placeholder="@" name="email" id="email">
 				</div>
 			</div>
 			<div class="row cl">
 				<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-					<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+					<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;修改&nbsp;&nbsp;">
 				</div>
 			</div>
 		</form>
@@ -49,7 +38,6 @@
                 radioClass: 'iradio-blue',
                 increaseArea: '20%'
             });
-
             $("#form-admin-add").validate({
                 rules:{
                     username:{
@@ -64,9 +52,6 @@
                         required:true,
                         equalTo: "#password"
                     },
-                    sex:{
-                        required:true,
-                    },
                     phone:{
                         required:true,
                         isPhone:true,
@@ -75,9 +60,6 @@
                         required:true,
                         email:true,
                     },
-                    adminRole:{
-                        required:true,
-                    },
                 },
                 onkeyup:false,
                 focusCleanup:true,
@@ -85,7 +67,7 @@
                 submitHandler:function(form){
                     $(form).ajaxSubmit({
                         type: 'post',
-                        url: "{:U('admin/admin/insert')}" ,
+                        url: "{:U('admin/admin/update').'?id='.$id}" ,
                         success: function(data){
                             if(!data['status']){
                                 layer.msg(data['msg'],{icon:1,time:2000});

@@ -39,7 +39,7 @@
                     <td>{$v['email']}</td>
                     <td>{$v['ctime']|date="Y-m-d H:i:s",###}</td>
                     <td>{$v['lasttime']|date="Y-m-d H:i:s",###}</td>
-                    <td class="td-manage"><a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','admin-add.html','2','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,{$v['id']})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                    <td class="td-manage"><a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','{:U(\'admin/admin/edit\')}',{$v['id']},'800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,{$v['id']})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                 </tr>
             </foreach>
 
@@ -76,14 +76,17 @@
             layer.confirm('确认要删除吗？',function(index){
                 $.ajax({
                     type: 'POST',
-                    url: "{:U('admin/admin/delete/')}"+'?id='+id,
+                    url: "{:U('admin/admin/delete')}",
                     dataType: 'json',
+                    data : {
+                        id : id,
+                    },
                     success: function(data){
-                            if(data.status == '0'){
+                            if(!data.status){
                                 $(obj).parents("tr").remove();
                                 layer.msg(data.msg,{icon:2,time:1000});
                             }else{
-                                layer.msg(data.msg,{icon:2,time:1000});
+                                layer.msg(data.msg,{icon:1,time:1000});
                             }
 
                     },
@@ -96,7 +99,7 @@
 
         /*管理员-编辑*/
         function admin_edit(title,url,id,w,h){
-            layer_show(title,url,w,h);
+            layer_show(title,url+'?id='+id,w,h);
         }
         /*管理员-停用*/
         function admin_stop(obj,id){
