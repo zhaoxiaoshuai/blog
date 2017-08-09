@@ -53,7 +53,7 @@
 
             $("#form-admin-add").validate({
                 rules:{
-                    adminName:{
+                    username:{
                         required:true,
                         minlength:4,
                         maxlength:16
@@ -61,7 +61,7 @@
                     password:{
                         required:true,
                     },
-                    password2:{
+                    repassword:{
                         required:true,
                         equalTo: "#password"
                     },
