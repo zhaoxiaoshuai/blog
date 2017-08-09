@@ -192,11 +192,20 @@ class MemberController extends Controller
     public function view()
     {
         $id = I('name');
-        if(!$id) {
-            echo '参数非法';
-            die;
-        }
-        echo $id;
+        if(!$id)
+            $this -> ajaxReturn([
+                'status' => 400,
+                'msg' => '参数不完整'
+            ]);
+        $d = new Members;
+        if(!$d -> where('id='.$id) -> count())
+            $this -> ajaxReturn([
+                'status' => 401,
+                'msg' => '用户不存在'
+            ]);
+
+        $data = $d -> where('id='.$id) -> relation('MemberDetails') -> find();
+        $this -> assign('data',$data) -> display();
     }
 
     /**

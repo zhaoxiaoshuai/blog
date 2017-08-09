@@ -22,25 +22,25 @@
         <div class="mt-20">
             <table class="table table-border table-bordered table-hover table-bg table-sort">
                 <thead>
-                <tr class="text-c">
-                    <th width="25"><input type="checkbox" name="" value=""></th>
-                    <th width="80">ID</th>
-                    <th width="100">用户名</th>
-                    <th width="40">性别</th>
-                    <th width="90">手机</th>
-                    <th width="150">邮箱</th>
-                    <th width="">地址</th>
-                    <th width="130">加入时间</th>
-                    <th width="70">状态</th>
-                    <th width="100">操作</th>
-                </tr>
+                    <tr class="text-c">
+                        <th width="25"><input type="checkbox" name="" value=""></th>
+                        <th width="80">ID</th>
+                        <th width="100">用户名</th>
+                        <th width="40">性别</th>
+                        <th width="90">手机</th>
+                        <th width="150">邮箱</th>
+                        <th width="">地址</th>
+                        <th width="130">加入时间</th>
+                        <th width="70">状态</th>
+                        <th width="100">操作</th>
+                    </tr>
                 </thead>
                 <tbody>
                 <foreach name="data" item="v" key="k">
                     <tr class="text-c">
                         <td><input type="checkbox" value="{$v['id']}" name="more[]"></td>
                         <td>{$v['id']}</td>
-                        <td><u style="cursor:pointer" class="text-primary" onclick="member_show('{$v[\'username\']}','{:U(\'/admin/member/view\')}','{$v[\'id\']}','360','400')">{$v['username']}</u></td>
+                        <td><u style="cursor:pointer" class="text-primary" onclick="member_show('{$v[\'username\']}','{:U(\'/admin/member/view\')}','{$v[\'id\']}','560','400')">{$v['username']}</u></td>
                         <td>{:C('SEX')[$v['sex']]}</td>
                         <td>{$v['phone']}</td>
                         <td>{$v['email']}</td>
@@ -109,7 +109,7 @@
                     },
                     error:function(data) {
                         console.log(data.msg);
-                    },
+                    }
                 });
             });
         }
@@ -166,7 +166,7 @@
                     },
                     error:function(data) {
                         console.log(data.msg);
-                    },
+                    }
                 });
             });
         }
