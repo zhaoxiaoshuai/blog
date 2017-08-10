@@ -1,10 +1,8 @@
 <?php
 namespace Admin\Controller;
-use Admin\Model\MemberDetails;
-use Admin\Model\Members;
+
 use Admin\Model\CateModel;
-use Think\Controller;
-class CateController extends Controller
+class CateController extends CommonController
 {
     /**
      * 分类列表
@@ -36,18 +34,17 @@ class CateController extends Controller
             ] );
 
         $description = I('description');
-        if(strlen($description) < 10 || strlen($description) > 100)
+        if(mb_strlen($description) < 10 || mb_strlen($description) > 100)
             $this -> ajaxReturn( [
                 'status' => 401,
                 'msg' => '描述太短或者太长了。'
             ] );
 
         $d = new CateModel();
-        if(!$d -> where("id={$id}") -> count())
+        if($id != 0 && !$d -> where("id={$id}") -> count())
             $this -> ajaxReturn( [
                 'status' => 401,
                 'msg' => '父级不存在，不要逗我玩。',
-                $d -> getLastSql()
             ] );
         if($d -> where("id={$id} AND name='{$name}'") -> count())
             $this -> ajaxReturn( [
@@ -78,6 +75,7 @@ class CateController extends Controller
         $data = (new CateModel()) -> select();
         $this -> assign('cate', $data) ->  display();
     }
+
     /**
      * 分类编辑2 只为了显示指定页面
      */
@@ -120,6 +118,5 @@ class CateController extends Controller
             'status' => 0,
             'msg' => '更新成功。。。'
         ]);
-//
     }
 }

@@ -12,6 +12,10 @@ return array(
             '分类添加' => '/admin/cate/index',
             '分类编辑' => '/admin/cate/edit',
         ),
+        '相册管理' => array(
+            '用户相册查看' => '/admin/photo/index',
+            '用户图片查看' => '/admin/photo/view'
+        ),
         '导航管理' => array(
             '导航列表' => '/admin/article/index',
             '添加导航' => '/admin/article/add',

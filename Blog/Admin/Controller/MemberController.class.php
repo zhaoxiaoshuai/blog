@@ -2,8 +2,7 @@
 namespace Admin\Controller;
 use Admin\Model\MemberDetails;
 use Admin\Model\Members;
-use Think\Controller;
-class MemberController extends Controller
+class MemberController extends CommonController
 {
     /**
      * 用户列表
@@ -14,6 +13,7 @@ class MemberController extends Controller
         $this -> set(compact('data'));
         $this -> display();
     }
+
     /**
      * 用户添加第一步
      */
