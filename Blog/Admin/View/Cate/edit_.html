@@ -1,0 +1,82 @@
+<extend name="Layout:index" />
+
+<block name="content">
+    <div class="page-container">
+        <form action="" method="post" class="form form-horizontal" id="form-user-add">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">
+                    <span class="c-red">*</span>
+                    分类名称：</label>
+                <div class="formControls col-xs-6 col-sm-6">
+                    <input type="text" class="input-text" value="" placeholder="" id="password" name="name">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">备注：</label>
+                <div class="formControls col-xs-6 col-sm-6">
+                    <textarea name="description" id="description" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"></textarea>
+                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-9 col-offset-2">
+                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                </div>
+            </div>
+        </form>
+    </div>
+</block>
+
+<block name="css">
+    <style>
+        button[type=button]{
+            position: absolute;
+            right:15px;
+            top:0;
+        }
+    </style>
+</block>
+
+<block name="js">
+    <script type="text/javascript">
+        $('button[type=button]').click(function () {
+            name = 0;
+            document.getElementById('user-name').value = '根分类';
+        });
+        var name=0;
+        $('#form-user-add').validate({
+            rules: {
+                name:{
+                    required:true
+                },
+                description:{
+                    required:true,
+                    minlength:10,
+                    maxlength:100
+                }
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                $(form).ajaxSubmit({
+                    type: 'post',
+                    url: "{:U('admin/cate/update')}?name="+name ,
+                    success: function(data){
+                        if (data.status) {
+                            parent.layer.msg(data.msg,{icon:2,time:2000});
+                        } else {
+                            parent.layer.msg(data.msg,{icon:1,time:2000});
+                            setTimeout(function (){
+                                window.parent.location.reload();
+                            }, 2200);
+                        }
+                    },
+                    error: function(XmlHttpRequest, textStatus, errorThrown){
+                        layer.msg('error!',{icon:1,time:2000});
+                    }
+                });
+            }
+        });
+    </script>
+</block>

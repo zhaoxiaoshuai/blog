@@ -153,6 +153,8 @@ class MemberController extends Controller
         $password2 = I('newpassword2');
         if($password != $password2)
             $this -> ajaxReturn(['status' => 401, 'msg' => '两次密码不一致。。。']);
+        if(strlen($password) < 4 || strlen($password) > 18)
+            $this -> ajaxReturn(['status' => 402, 'msg' => '密码长度不正确。。']);
 
 //        验证管理员密码
         $admin  = I('oldpassword');
@@ -172,7 +174,7 @@ class MemberController extends Controller
             ]);
 
 //        设置密码
-        $d -> password = $password;
+        $d -> password = encrypt($password);
         if($d -> where('id='.$id) -> save())
             $this -> ajaxReturn([
                 'status' => 0,

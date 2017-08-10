@@ -4,16 +4,13 @@ return array(
     'NAV' => array(
         '用户管理' => array(
             '用户列表' => '/admin/member/index',
-            '添加用户' => '/admin/member/add',
             '已删除用户' => '/admin/member/deleted',
         ),
         '文章管理' => array(
             '文章列表' => '/admin/article/index',
             '添加文章' => '/admin/article/add',
-        ),
-        '分类管理' => array(
-            '分类列表' => '/admin/article/index',
-            '添加分类' => '/admin/article/add',
+            '分类添加' => '/admin/cate/index',
+            '分类编辑' => '/admin/cate/edit',
         ),
         '导航管理' => array(
             '导航列表' => '/admin/article/index',

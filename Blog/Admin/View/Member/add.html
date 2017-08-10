@@ -99,9 +99,6 @@
                         },
                         error: function(XmlHttpRequest, textStatus, errorThrown){
                             layer.msg('error!',{icon:1,time:2000});
-                            var index = parent.layer.getFrameIndex(window.name);
-                            parent.$('.btn-refresh').click();
-                            parent.layer.close(index);
                         }
                     });
                 }
