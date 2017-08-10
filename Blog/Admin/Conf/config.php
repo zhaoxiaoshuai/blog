@@ -7,7 +7,7 @@ return array(
             '已删除用户' => '/admin/member/deleted',
         ),
         '文章管理' => array(
-            '文章列表' => '/admin/article/index',
+            '文章列表' => '/admin/article/list',
             '添加文章' => '/admin/article/add',
             '分类添加' => '/admin/cate/index',
             '分类编辑' => '/admin/cate/edit',
