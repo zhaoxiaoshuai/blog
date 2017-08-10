@@ -43,15 +43,16 @@ class CateController extends Controller
             ] );
 
         $d = new CateModel();
-        if($d -> where("id={$id}") -> count())
+        if(!$d -> where("id={$id}") -> count())
             $this -> ajaxReturn( [
                 'status' => 401,
-                'msg' => '父级不存在，不要逗我玩。'
+                'msg' => '父级不存在，不要逗我玩。',
+                $d -> getLastSql()
             ] );
         if($d -> where("id={$id} AND name='{$name}'") -> count())
             $this -> ajaxReturn( [
                 'status' => 402,
-                'msg' => '不能和上级分类名重名。'
+                'msg' => '不能和上级分类名重名。',
             ] );
 
         $d -> name = $name;
@@ -61,7 +62,6 @@ class CateController extends Controller
             $this->ajaxReturn( [
                 'status' => 403,
                 'msg' => '添加失败。。。',
-                $res
             ]);
 
         $this -> ajaxReturn( [
@@ -114,7 +114,6 @@ class CateController extends Controller
             $this->ajaxReturn( [
                 'status' => 403,
                 'msg' => '更新失败。。。',
-                $res
             ]);
 
         $this -> ajaxReturn( [
