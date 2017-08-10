@@ -114,7 +114,7 @@
                         layer.msg(data['msg'],{icon:1,time:2000});
                         var index = parent.layer.getFrameIndex(window.name);
                         setTimeout(function(){
-                            location.href = "{:U('admin/index/index')}";
+                            location.href = "{:U('/admin/index/index')}";
                         },1000);
                         parent.$('.btn-refresh').click();
                         parent.layer.close(index);

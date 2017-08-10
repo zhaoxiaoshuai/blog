@@ -85,12 +85,12 @@
                 submitHandler:function(form){
                     $(form).ajaxSubmit({
                         type: 'post',
-                        url: "{:U('admin/admin/insert')}" ,
+                        url: "{:U('/admin/admin/insert')}" ,
                         success: function(data){
                             if(!data['status']){
                                 layer.msg(data['msg'],{icon:1,time:2000});
                                 var index = parent.layer.getFrameIndex(window.name);
-                                window.parent.location.href = "{:U('admin/admin/index')}";
+                                window.parent.location.href = "{:U('/admin/admin/index')}";
                                 parent.$('.btn-refresh').click();
                                 parent.layer.close(index);
 							}else{

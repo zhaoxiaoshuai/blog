@@ -4,11 +4,17 @@ use Think\Controller;
 use Admin\Model\AdminModel;
 
 class AdminController extends Controller {
-    //显示添加页面
+
+    /**
+     * 显示添加页面
+     */
     public function add(){
         $this -> display();
     }
-    //执行插入数据库
+
+    /**
+     * 执行插入数据库
+     */
     public function insert(){
         $data = I('post.');
         //设置验证规则
@@ -48,13 +54,18 @@ class AdminController extends Controller {
             }
         }
     }
-    //显示列表
+    /**
+     * 显示列表
+    */
     public function index(){
         $data = (new AdminModel()) -> select();
         $this -> set(compact('data'));
         $this->display();
     }
-    //显示修改页面
+
+    /**
+     * 显示修改页面
+     */
     public function edit()
     {
         $id = I('id');
@@ -62,7 +73,10 @@ class AdminController extends Controller {
         $this -> set(compact(['user','id']));
         $this -> display();
     }
-    //执行修改
+
+    /**
+     * 执行修改
+     */
     public function update()
     {
         $id = I('get.')['id'];
@@ -96,7 +110,10 @@ class AdminController extends Controller {
             }
         }
     }
-    //删除
+
+    /**
+     * 删除
+     */
     public function delete()
     {
         $id = I('id');
@@ -126,6 +143,72 @@ class AdminController extends Controller {
             ];
         }
         $this->ajaxReturn($data);
+    }
+    /**
+     * 修改个人密码页面
+     */
+    public function password()
+    {
+        $this -> assign('id',I('id')) -> display();
+    }
+    /**
+     * 执行修改密码
+     */
+    public function pass()
+    {
+        $id =  I('get.id');
+        $password = I('post.newpassword');
+        $password2 = I('post.newpassword2');
+        if(!$id){
+            $this -> ajaxReturn(['status' => 401, 'msg' => '参数错误。。。']);
+        }
+        //验证新密码长度
+        if (strlen($password) < 4 || strlen($password)>18){
+            $this -> ajaxReturn(['status' => 402, 'msg' => '新密码长度不正确']);
+        }
+        //验证两次密码的一致性
+        if($password != $password2){
+            $this -> ajaxReturn(['status' => 403, 'msg' => '两次密码不一致。。。']);
+        }
+        //验证管理员密码
+        $oldpassword = I('post.password');
+        $adminpassword = session('admin')['password'];
+        if(!cryptcheck($oldpassword, $adminpassword))
+            $this -> ajaxReturn([
+                'status' => 404,
+                'msg' => '原密码出错'
+            ]);
+        //验证数据库有没有这个用户
+        $admin = new AdminModel();
+        if(!$admin -> where('id='.$id) -> count()){
+            $this -> ajaxReturn([
+                'status' => 405,
+                'msg' => '没有这个用户。'
+            ]);
+        }
+        //设置密码
+        $admin -> password = encrypt($password);
+        if($admin -> where('id='.$id) -> save()){
+            //删除session('admin')
+            session('admin',null);
+            $this -> ajaxReturn([
+                'status' => 0,
+                'msg' => '密码已修改。'
+            ]);
+        }
+        //设置失败
+        $this -> ajaxReturn([
+            'status' => 500,
+            'msg' => '服务器问题，重试一下。'
+        ]);
+
+    }
+    /**
+     * 个人信息
+     */
+    public function show()
+    {
+        $this -> display();
     }
 
 }

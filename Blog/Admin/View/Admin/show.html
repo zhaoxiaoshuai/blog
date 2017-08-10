@@ -1,0 +1,36 @@
+<extend name="Layout:index" />
+
+<block name="content">
+    <div class="cl pd-20" style=" background-color:#5bacb6">
+        <img class="avatar size-XL l" src="//{:isset($data['face']) ? C('HOME_USER_FACE_PATH').$data['face'] : C('HOME_USER_FACE_PATH').'default.gif'}">
+        <dl style="margin-left:80px; color:#fff">
+            <dt>
+                <span class="f-18">{:session('admin')['username']}</span>
+                <span class="pl-10 f-12">余额：99999</span>
+            </dt>
+            <dd class="pt-10 f-12" style="margin-left:0">111</dd>
+        </dl>
+    </div>
+    <div class="pd-20">
+        <table class="table">
+            <tbody>
+            <tr>
+                <th class="text-r">手机：</th>
+                <td>{:session('admin')['phone']}</td>
+            </tr>
+            <tr>
+                <th class="text-r">邮箱：</th>
+                <td>{:session('admin')['email']}</td>
+            </tr>
+            <tr>
+                <th class="text-r">创建时间：</th>
+                <td>{:date('Y-m-d H:i:s',session('admin')['ctime'])}</td>
+            </tr>
+            <tr>
+                <th class="text-r">最后登陆时间：</th>
+                <td>{:date('Y-m-d H:i:s',session('admin')['lasttime'])}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</block>

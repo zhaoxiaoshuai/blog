@@ -5,12 +5,17 @@ use Admin\Controller\CodeController;
 
 class LoginController extends Controller {
 
-    //登陆页面
+    /**
+     * 登陆页面
+    */
     public function index()
     {
         $this->display();
     }
-    //验证登陆
+
+    /**
+     * 验证登陆
+     */
     public function dologin()
     {
         $data = I('post.');
@@ -63,5 +68,18 @@ class LoginController extends Controller {
             'msg' => '登陆成功',
             cryptcheck($data['password'],$user['password'])
         ]);
+    }
+    /**
+     * 退出登录
+     */
+    public function myclose()
+    {
+        //删除session('admin')
+        session('admin',null);
+        $this->ajaxReturn([
+            'status' => 0,
+            'msg' => '1秒后退出',
+        ]);
+
     }
 }
