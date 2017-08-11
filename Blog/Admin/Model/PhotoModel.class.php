@@ -21,5 +21,11 @@ class PhotoModel extends RelationModel
                 'foreign_key' => 'id',
                 'as_fields' => 'path',
             ),
+            'Admin'=> array(
+                'mapping_type' => self::HAS_ONE,
+                'mapping_key' => 'pid',
+                'foreign_key' => 'id',
+                'as_fields' => 'username',
+            ),
         );
 }

@@ -43,8 +43,7 @@
                         <td>{$v['utime']|date='Y-m-d H:i:s',###}</td>
                         <td class="td-status"><span class="label {:C('STATUS_ICON')[$v['status']]} radius">{:C('STATUS')[$v['status']]}</span></td>
                         <td class="td-manage">
-                            <a style="text-decoration:none" onClick="{$v['status']==2?'picture_stop':'picture_start'}(this,'{$v[\'id\']}')" href="javascript:;" title="{$v['status']==2?C('STATUS')[3]:C('STATUS')[2]}"><i class="Hui-iconfont">{$v['status']==2?'&#xe6de;':'&#xe603;'}</i></a>
-                            <a style="text-decoration:none" class="ml-5" onClick="picture_edit('图库编辑','{:U(\'/admin/photo/edit\')}','{$v[\'id\']}')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
+                            <a style="text-decoration:none" href="javascript:;" onclick="member_huanyuan(this,'{$v[\'id\']}')" title="还原"><i class="Hui-iconfont"></i></a>
                             <a style="text-decoration:none" class="ml-5" onClick="picture_del(this,'{$v[\'id\']}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
                         </td>
                     </tr>
@@ -66,104 +65,27 @@
             "bStateSave": true,//状态保存
         });
 
-        /*图片-添加*/
-        function picture_add(title,url){
-            var index = layer.open({
-                type: 2,
-                title: title,
-                content: url
-            });
-            layer.full(index);
-        }
-
-        /*图片-查看*/
-        function picture_show(title,url,id){
-            var index = layer.open({
-                type: 2,
-                title: title,
-                content: url
-            });
-            layer.full(index);
-        }
-
-        /*图片-审核*/
-        function picture_shenhe(obj,id){
-            layer.confirm('审核文章？', {
-                    btn: ['通过','不通过'],
-                    shade: false
-                },
-                function(){
-                    $(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="picture_start(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-                    $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
-                    $(obj).remove();
-                    layer.msg('已发布', {icon:6,time:1000});
-                },
-                function(){
-                    $(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="picture_shenqing(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-                    $(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">未通过</span>');
-                    $(obj).remove();
-                    layer.msg('未通过', {icon:5,time:1000});
-                });
-        }
-
-        /*图片-下架*/
-        function picture_stop(obj,id){
-            layer.confirm('确认要{:C(\'STATUS\')[3]}吗？',function(index){
-                $.get('{:U(\'/admin/photo/status\')}',{name:id,status:3},function(data){
-                    if(data.status){
-                        layer.msg(data.msg,{icon:2,time:2000});
-                        return false;
-                    }
-                    layer.msg(data.msg,{icon:1,time:2000});
-                    $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="picture_start(this,'+id+')" href="javascript:;" title="{:C(\'STATUS\')[2]}"><i class="Hui-iconfont">&#xe603;</i></a>');
-                    $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">{:C(\'STATUS\')[3]}</span>');
-                    $(obj).remove();
-                });
-            });
-        }
-
-        /*图片-发布*/
-        function picture_start(obj,id){
-            layer.confirm('确认要{:C(\'STATUS\')[2]}吗？',function(index){
+        /*相册-还原*/
+        function member_huanyuan(obj,id){
+            layer.confirm('确认要还原吗？',function(index){
                 $.get('{:U(\'/admin/photo/status\')}',{name:id,status:2},function(data){
                     if(data.status){
-                        layer.msg(data.msg,{icon:2,time:2000});
+                        layer.msg(data.msg,{icon:5,time:2000});
                         return false;
                     }
-                    layer.msg(data.msg,{icon:1,time:2000});
-                    $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="picture_stop(this,'+id+')" href="javascript:;" title="{:C(\'STATUS\')[3]}"><i class="Hui-iconfont">&#xe6de;</i></a>');
-                    $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">正常</span>');
-                    $(obj).remove();
+                    $(obj).parents("tr").remove();
+                    layer.msg(data.msg,{icon: 6,time:2000});
                 });
             });
         }
-
-        /*图片-申请上线*/
-        function picture_shenqing(obj,id){
-            $(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">待审核</span>');
-            $(obj).parents("tr").find(".td-manage").html("");
-            layer.msg('已提交申请，耐心等待审核!', {icon: 1,time:2000});
-        }
-
-        /*图片-编辑*/
-        function picture_edit(title,url,id){
-            var index = layer.open({
-                type: 2,
-                title: title,
-                content: url + '?name=' + id
-            });
-            layer.full(index);
-        }
-
         /*图片-删除*/
         function picture_del(obj,id){
             layer.confirm('确认要删除吗？',function(index){
                 $.ajax({
                     type: 'POST',
-                    url: '{:U(\'/admin/photo/status\')}',
+                    url: '{:U(\'/admin/photo/del\')}',
                     data : {
-                        name : id,
-                        status : 4
+                        name : id
                     },
                     dataType: 'json',
                     success: function(data){
@@ -173,6 +95,7 @@
                         }
                         layer.msg(data.msg,{icon:1,time:2000});
                         $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
                     },
                     error:function(data) {
                         layer.msg('网络出现了问题，请重试。',{icon:2,time:2000});

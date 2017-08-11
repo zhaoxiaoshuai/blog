@@ -228,7 +228,7 @@ class MemberController extends CommonController
         if($d -> where('id='.$id) -> save())
             $this -> ajaxReturn(['status' => 0, 'msg' => '成功'.C('STATUS')[$status]]);
         else
-            $this -> ajaxReturn(['status' => 500, 'msg' => C('STATUS')[$status]].'失败');
+            $this -> ajaxReturn(['status' => 500, 'msg' => C('STATUS')[$status].'失败]']);
     }
 
     /**
@@ -270,7 +270,7 @@ class MemberController extends CommonController
         $d = D('Members') -> where ('id='.$id);
         $d -> startTrans();
         if(!$d -> count())
-            $this -> ajaxReturn(['status' => 400, 'msg' => '用户不存在', $d -> getLastSql()]);
+            $this -> ajaxReturn(['status' => 400, 'msg' => '用户不存在']);
         if($d -> where('id='.$id) -> delete() && D('MemberDetails') -> where('id='.$id) -> delete()){
             $d -> commit();
             $this -> ajaxReturn(['status' => 0, 'msg' => '删除成功']);

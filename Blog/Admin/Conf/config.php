@@ -14,7 +14,7 @@ return array(
         ),
         '相册管理' => array(
             '用户相册查看' => '/admin/photo/index',
-            '用户图片查看' => '/admin/photo/view'
+            '相册回收站' => '/admin/photo/deleted',
         ),
         '导航管理' => array(
             '导航列表' => '/admin/article/index',
@@ -23,22 +23,5 @@ return array(
         '管理员管理' => array(
             '管理员列表' => '/admin/admin/index',
         ),
-    ),
-    'SEX' => array(
-        'm' => '男',
-        'w' => '女',
-        'x' => '保密'
-    ),
-    'STATUS' => array(
-        1 => '未激活',
-        '正常',
-        '停用',
-        '已删除'
-    ),
-    'STATUS_ICON' => array(
-        1 => 'label-warm',
-        'label-success',
-        'label-warm',
-        'label-danger'
     ),
 );
