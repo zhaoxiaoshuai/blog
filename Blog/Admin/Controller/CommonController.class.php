@@ -49,7 +49,29 @@ class CommonController extends Controller {
      */
     public function back()
     {
-        redirect($_SERVER['HTTP_REFERER'],0);
-        return this;
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        return $this;
+    }
+
+    public function upload_pic()
+    {
+//        实例化上传对象
+        $up = new \Think\Upload();
+        $up -> MazSize = 2 * 1024 * 1024;
+        $up -> exts = array('jpg', 'gif', 'png', 'jpeg');
+        $up -> rootPath = C('PIC_UPLOAD_PATH');
+//        上传方法
+        $info   =   $up->upload();
+//        失败
+        if(!$info)
+            $this -> ajaxReturn(array(
+                'status' => 500,
+                'msg' => $up -> getError()
+            ));
+//        成功
+        $this -> ajaxReturn(array_merge(array(
+            'status' => 0,
+            'msg' => '上传成功！',
+        ),$info));
     }
 }

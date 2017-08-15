@@ -25,4 +25,5 @@ return array(
         ),
     ),
     'DEFAULT_PHOTO' => 'default.gif',
+    'PIC_UPLOAD_PATH' => THINK_PATH.'../Public/uploads/photo/',
 );
