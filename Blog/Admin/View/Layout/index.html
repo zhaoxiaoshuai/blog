@@ -10,8 +10,8 @@
 
 
     </block>
-    <LINK rel="Bookmark" href="__PUBLIC__//favicon.ico" >
-    <LINK rel="Shortcut Icon" href="__PUBLIC__//favicon.ico" />
+    <LINK rel="Bookmark" href="__PUBLIC__/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="__PUBLIC__/favicon.ico" />
     <!--[if lt IE 9]>
     <script type="text/javascript" src="__PUBLIC__/lib/html5shiv.js"></script>
     <script type="text/javascript" src="__PUBLIC__/lib/respond.min.js"></script>
@@ -20,6 +20,8 @@
     <link href="__PUBLIC__/static/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="__PUBLIC__/static/h-ui.admin/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
     <link href="__PUBLIC__/lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/static/h-ui.admin/css/style.css" />
     <block name="css">
 
 
@@ -43,7 +45,17 @@
 <script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript" src="__PUBLIC__/static/h-ui/js/H-ui.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/static/h-ui.admin/js/H-ui.admin.js"></script>
-
+<if condition="session('error') !== null">
+    <script>
+        layer.msg('{:flu(\'error\')}',<literal>{icon:2,time:2000});</literal>
+    </script>
+</if>
+<if condition="session('success') !== null">
+    <script>
+        layer.msg('{:flu(\'success\')}',<literal>{icon:1,time:2000});</literal>
+    </script>
+</if>
+{:session('error')}
 <block name="js">
 
 

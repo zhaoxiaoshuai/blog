@@ -24,4 +24,5 @@ return array(
             '管理员列表' => '/admin/admin/index',
         ),
     ),
+    'DEFAULT_PHOTO' => 'default.gif',
 );

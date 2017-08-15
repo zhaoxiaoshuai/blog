@@ -1,0 +1,97 @@
+<extend name="Layout:index" />
+
+<block name="content">
+	<article class="page-container">
+		<form class="form form-horizontal" id="form-admin-add" action="{:U('/admin/photo/update')}" method="post">
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>相册名：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="{$data['name']}" placeholder="最少2个字符，最多8个字符" id="name" name="name">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所有者：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" autocomplete="off" value="{:session('admin.username')}"  disabled >
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>是否允许评论：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+                    <select name="comment">
+                        <option value="1" {$data['comment'] == 1 ? 'selected':''}>允许</option>
+                        <option value="0" {$data['comment'] == 0 ? 'selected':''}>不允许</option>
+                    </select>
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>相册描述：</label>
+				<div class="formControls col-xs-6 col-sm-6">
+                    <textarea name="description" cols="" rows="" class="textarea"  placeholder="最少输入4个字符，最多100个字符。" onKeyUp="$.Huitextarealength(this,100)">{$data['description']}</textarea>
+                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+                </div>
+            </div>
+			<div class="row cl">
+				<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+					<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				</div>
+			</div>
+		</form>
+	</article>
+</block>
+
+<block name="js">
+	<script type="text/javascript">
+        $(function(){
+            $('.skin-minimal input').iCheck({
+                checkboxClass: 'icheckbox-blue',
+                radioClass: 'iradio-blue',
+                increaseArea: '20%'
+            });
+
+            $("#form-admin-add").validate({
+                rules:{
+                    name:{
+                        required:true,
+                        minlength:2,
+                        maxlength:8
+                    },
+
+                    description:{
+                        required:true,
+                        minlength:4,
+                        maxlength:100
+                    }
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "{:U('admin/photo/update')}" ,
+                        data : {
+                            id:'{$id}'
+                        },
+                        success: function(data){
+                            if(data.status){
+                                parent.layer.msg(data.msg,{icon:2,time:2000});
+                                return false;
+                            }
+                            window.parent.setTimeout(function (){
+                                this.location.reload();
+                            },1500);
+                            parent.layer.msg(data.msg,{icon:1,time:2000});
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.$('.btn-refresh').click();
+                            parent.layer.close(index);
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:2000});
+                        }
+                    });
+                }
+            });
+        });
+	</script>
+</block>

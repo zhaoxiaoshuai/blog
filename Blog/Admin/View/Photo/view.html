@@ -1,0 +1,67 @@
+<extend name="Layout:index" />
+
+<block name="content">
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont">&#xe67f;</i> 首页
+        <span class="c-gray en">&gt;</span> 相册管理
+        <span class="c-gray en">&gt;</span> 图片展示
+        <span class="c-gray en">&gt;</span> {$data['name']}
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+            <i class="Hui-iconfont">&#xe68f;</i>
+        </a>
+    </nav>
+    <div class="page-container">
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="l">
+                <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont"></i> 批量删除</a>
+                <a class="btn btn-primary radius" onclick="picture_add('{$data[\'id\']}')" href="javascript:;"><i class="Hui-iconfont"></i> 添加图片</a>
+            </span>
+        </div>
+        <div class="portfolio-content">
+            <php>$data = $data['PhotoList']</php>
+            <if condition="$data">
+                <ul class="cl portfolio-area">
+                    <foreach name="data" item="v">
+                        <li class="item">
+                            <div class="portfoliobox">
+                                <input class="checkbox" name="" type="checkbox" value="">
+                                <div class="picbox"><a href="http://{:C('PHOTO_UPLOADS_PATH').$v['path']}" data-lightbox="gallery" data-title="{$v['name']}"><img src="//{:C('PHOTO_UPLOADS_PATH').$v['path']}" title="{$v['description']}"></a></div>
+                                <div class="textbox">{$v['name']} </div>
+                            </div>
+                        </li>
+                    </foreach>
+                </ul>
+            <else />
+                <center style="padding: 20px;font-size: 30px;">没有相片</center>
+            </if>
+
+        </div>
+    </div>
+</block>
+
+<block name="css">
+    <link href="__PUBLIC__/lib/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet" type="text/css" >
+    <style>
+        .item .portfoliobox{
+            transition:all .5s;
+        }
+        .item .portfoliobox:hover{
+            border-color:red;
+            box-shadow: 0 0 2px 1px purple;
+        }
+    </style>
+</block>
+
+<block name="js">
+    <script type="text/javascript" src="__PUBLIC__/lib/lightbox2/2.8.1/js/lightbox.min.js"></script>
+    <script>
+        function picture_add(id){
+            var index = layer.open({
+                type: 2,
+                title: '上传图片',
+                content: '{:U(\'/admin/photo/upload\')}?name=' + id
+            });
+            layer.full(index);
+        }
+    </script>
+</block>

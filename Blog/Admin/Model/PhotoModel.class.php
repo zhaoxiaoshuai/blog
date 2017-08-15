@@ -27,5 +27,10 @@ class PhotoModel extends RelationModel
                 'foreign_key' => 'id',
                 'as_fields' => 'username',
             ),
+            'PhotoList' => array(
+                'mapping_type' => self::HAS_MANY,
+                'class_name' => 'PhotoContent',
+                'foreign_key' => 'pid',
+            ),
         );
 }

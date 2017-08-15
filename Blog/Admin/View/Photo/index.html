@@ -17,7 +17,18 @@
             <input type="text" name="" id="" placeholder=" 图片名称" style="width:250px" class="input-text">
             <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜图片</button>
         </div>
-        <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" onclick="picture_add('添加图片','picture-add.html')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加图片</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="l">
+                <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+                    <i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+                </a>
+                <a class="btn btn-primary radius" onclick="picture_add('添加相册')" href="javascript:;">
+                    <i class="Hui-iconfont">&#xe600;</i> 添加相册
+                </a>
+                <a class="btn btn-primary radius" onclick="picture_add2('上传图片')" href="javascript:;">
+                    <i class="Hui-iconfont">&#xe600;</i> 上传图片
+                </a>
+        </div>
         <div class="mt-20">
             <table class="table table-border table-bordered table-bg table-hover table-sort">
                 <thead>
@@ -27,6 +38,7 @@
                     <th width="80">所有者</th>
                     <th width="100">封面</th>
                     <th>相册名称</th>
+                    <th>相册描述</th>
                     <th width="150">更新时间</th>
                     <th width="60">发布状态</th>
                     <th width="100">操作</th>
@@ -38,8 +50,9 @@
                         <td><input name="more[]" type="checkbox" value="{$v['id']}"></td>
                         <td>{$v['id']}</td>
                         <td>{$v['username']}</td>
-                        <td><a href="javascript:;" onClick="picture_edit('{$v[\'name\']}图库','{:U(\'/admin/photo/view\')}','{$v[\'id\']}')"><img class="picture-thumb" src="//{:C('PHOTO_UPLOADS_PATH'),$v['path']}"></a></td>
-                        <td class="text-l"><a class="maincolor" href="javascript:;" onClick="picture_edit('{$v[\'name\']}图库','{:U(\'/admin/photo/view\')}','{$v[\'id\']}')">{$v['name']}</a></td>
+                        <td><a href="javascript:;" onClick="picture_show('{$v[\'name\']}图库','{:U(\'/admin/photo/view\')}','{$v[\'id\']}')"><img class="picture-thumb" src="//{:C('PHOTO_UPLOADS_PATH'),$v[cid]?($v['path']?$v['path']:C('DEFAULT_PHOTO')):C('DEFAULT_PHOTO')}"></a></td>
+                        <td class="text-l"><a class="maincolor" href="javascript:;" onClick="picture_show('{$v[\'name\']}图库','{:U(\'/admin/photo/view\')}','{$v[\'id\']}')">{$v['name']}</a></td>
+                        <td>{$v['description']}</td>
                         <td>{$v['utime']|date='Y-m-d H:i:s',###}</td>
                         <td class="td-status"><span class="label {:C('STATUS_ICON')[$v['status']]} radius">{:C('STATUS')[$v['status']]}</span></td>
                         <td class="td-manage">
@@ -63,15 +76,19 @@
     <script type="text/javascript">
         $('.table-sort').dataTable({
             "aaSorting": [[ 1, "desc" ]],//默认第几个排序
-            "bStateSave": true,//状态保存
+            "bStateSave": true//状态保存
         });
 
         /*图片-添加*/
-        function picture_add(title,url){
+        function picture_add(title){
+            layer_show(title,'{:U(\'/admin/photo/add\')}',660,500);
+        }
+
+        function picture_add2(title){
             var index = layer.open({
                 type: 2,
                 title: title,
-                content: url
+                content: '{:U(\'/admin/photo/upload\')}'
             });
             layer.full(index);
         }
@@ -81,7 +98,7 @@
             var index = layer.open({
                 type: 2,
                 title: title,
-                content: url
+                content: url + '?name=' + id
             });
             layer.full(index);
         }
@@ -147,12 +164,7 @@
 
         /*图片-编辑*/
         function picture_edit(title,url,id){
-            var index = layer.open({
-                type: 2,
-                title: title,
-                content: url + '?name=' + id
-            });
-            layer.full(index);
+            layer_show(title,url+'?name='+id,660,500);
         }
 
         /*图片-删除*/

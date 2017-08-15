@@ -42,4 +42,14 @@ class CommonController extends Controller {
         redirect($url,0);
         return $this;
     }
+
+    /**
+     * 返回上一地址。
+     * @return mixed
+     */
+    public function back()
+    {
+        redirect($_SERVER['HTTP_REFERER'],0);
+        return this;
+    }
 }
