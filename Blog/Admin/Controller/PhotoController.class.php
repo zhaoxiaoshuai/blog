@@ -194,19 +194,14 @@ class PhotoController extends CommonController
         $this -> set(compact('data','id')) -> display();
     }
 
-    /**
-     * 实质上传方法
-     */
-    public function uploads()
-    {
-        $this -> ajaxReturn(I('post.'));
-    }
 
     /**
      * 上传完成后保存照片信息
      */
     public function uploads_save()
     {
-        $this -> ajaxReturn(I('post.'));
+        $pid = I('pid');
+        $names = implode(',', I('names'));
+        $this -> set(compact('names', 'pid')) -> display();
     }
 }

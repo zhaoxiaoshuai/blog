@@ -47,14 +47,15 @@
                     </div>
                 </div>
             </div>
-        <div class="row cl">
-            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-                 <button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
-                 <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                     <button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
+                     <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                </div>
             </div>
-        </div>
-    </form>
-</div>
+            <div id="append"></div>
+        </form>
+    </div>
 </block>
 
 <block name="js">
@@ -65,6 +66,26 @@
     <script type="text/javascript" src="__PUBLIC__/lib/webuploader/0.1.5/webuploader.min.js"></script>
     <script type="text/javascript">
         (function( $ ){
+//            获取相片上传到哪一个相册
+            var select = $('select[name=pid]');
+            var com = $('select[name=comment]');
+            var idName = select.val();
+            var comment = com.val();
+
+            select.change(function () {
+                idName = this.value;
+                uploader.option('formData',{
+                    'pid' : this.value,
+                    'comment' : comment
+                });
+            });
+            com.change(function () {
+                comment = this.value;
+                uploader.option('formData',{
+                    'pid' : idName,
+                    'comment' : this.value
+                });
+            });
             // 当domReady的时候开始初始化
             $(function() {
                 var $wrap = $('.uploader-list-container'),
@@ -159,15 +180,15 @@
                             window['expressinstallcallback'] = function( state ) {
                                 switch(state) {
                                     case 'Download.Cancelled':
-                                        alert('您取消了更新！')
+                                        layer.alert('您取消了更新！')
                                         break;
 
                                     case 'Download.Failed':
-                                        alert('安装失败')
+                                        layer.alert('安装失败')
                                         break;
 
                                     default:
-                                        alert('安装已成功，请刷新！');
+                                        layer.alert('安装已成功，请刷新！');
                                         break;
                                 }
                                 delete window['expressinstallcallback'];
@@ -199,7 +220,7 @@
 
                     return;
                 } else if (!WebUploader.Uploader.support()) {
-                    alert( 'Web Uploader 不支持您的浏览器！');
+                   layer.alert( 'Web Uploader 不支持您的浏览器！');
                     return;
                 }
 
@@ -210,7 +231,7 @@
                         label: '点击选择图片'
                     },
                     formData: {
-                        uid: 123
+                        pid: idName
                     },
                     dnd: '#dndArea',
                     paste: '#uploader',
@@ -257,12 +278,14 @@
                 });
                 uploader.on('uploadSuccess', function(file, data) {
                     window.parent.parent.parent.a=data;
-                    console.log(data,data.status?'1':'0');
+                    console.log(data,idName);
                     if(data.status){
                         layer.msg(file.name + '上传失败，' + data.msg, {icon:5,time:1500});
                         return false;
                     }
                     layer.msg(file.name + '，' + data.msg, {icon:6,time:1500});
+                    $('<input name=\'names[]\' type=\'hidden\'/>').attr('value',data.id).appendTo($('#append'));
+
                 });
 
                 // uploader.on('filesQueued', function() {
@@ -613,7 +636,7 @@
                 });
 
                 uploader.onError = function( code ) {
-                    alert( 'Eroor: ' + code );
+                   layer.alert( 'Eroor: ' + code );
                 };
 
                 $upload.on('click', function() {
@@ -635,7 +658,7 @@
                 } );
 
                 $info.on( 'click', '.ignore', function() {
-                    alert( 'todo' );
+                   layer.alert( 'todo' );
                 } );
 
                 $upload.addClass( 'state-' + state );
