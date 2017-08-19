@@ -1,0 +1,82 @@
+<extend name="Layout:index" />
+
+<block name="content">
+    <div class="page-container">
+        <form action="{:U('/admin/photo/uploads_dosave')}" method="post" class="form form-horizontal" id="form-article-add">
+            <div class="row cl">
+                <input type="hidden" name="pid" value="{$pid}">
+                <input type="hidden" name="names" value="{$names}">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>选择相册：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" disabled value="{$data['name']}" class="input-text">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">允许评论：</label>
+                <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                    <select name="comment" id="">
+                        <option value="1">允许</option>
+                        <option value="0">不允许</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>统一添加名称：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" value="" name="name" class="input-text" placeholder="请填写相片名称">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>统一添加描述：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <textarea name="description" cols="" rows="" class="textarea valid" placeholder="请填写描述。" onkeyup="$.Huitextarealength(this,255)"></textarea>
+                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/255</p>
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                    <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
+                    <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                </div>
+            </div>
+            <div id="append"></div>
+        </form>
+    </div>
+</block>
+
+<block name="js">
+    <script>
+        $('#form-article-add').validate({
+            rules: {
+                name:{
+                    required:true
+                },
+                description:{
+                    maxlength:255
+                }
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                $(form).ajaxSubmit({
+                    type: 'post',
+                    url: "{:U('/admin/photo/uploads_dosave')}",
+                    success: function(data){
+                        if (data.status) {
+                            parent.layer.msg(data.msg,{icon:2,time:2000});
+                        } else {
+                            parent.layer.msg(data.msg,{icon:1,time:2000});
+                            setTimeout(function (){
+                                window.parent.location.reload();
+                            }, 2200);
+                        }
+                    },
+                    error: function(XmlHttpRequest, textStatus, errorThrown){
+                        layer.msg('error!',{icon:1,time:2000});
+                    }
+                });
+            }
+        });
+    </script>
+</block>
