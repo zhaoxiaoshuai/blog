@@ -13,5 +13,5 @@ use Think\Model\RelationModel;
 
 class CateModel extends RelationModel
 {
-
+    protected $tableName = 'cate';
 }

@@ -17,13 +17,11 @@ return array(
             '相册回收站' => '/admin/photo/deleted',
         ),
         '导航管理' => array(
-            '导航列表' => '/admin/article/index',
-            '添加导航' => '/admin/article/add',
+            '导航列表' => '/admin/nav/index',
+            '添加导航' => '/admin/nav/add',
         ),
         '管理员管理' => array(
             '管理员列表' => '/admin/admin/index',
         ),
     ),
-    'DEFAULT_PHOTO' => 'default.gif',
-    'PIC_UPLOAD_PATH' => THINK_PATH.'../Public/uploads/photo/',
 );

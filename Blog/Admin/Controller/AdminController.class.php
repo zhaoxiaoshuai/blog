@@ -40,6 +40,7 @@ class AdminController extends Controller {
             $data['ctime'] = time();            //添加创建时间
             $data['lasttime'] = time();         //默认创建时间就是第一次登陆时间
             $data['password'] = encrypt($data['password']);
+            $data['token'] = rand(100000,999999);
             $res = $users->add($data);
             if($res){
                 $this->ajaxReturn( [

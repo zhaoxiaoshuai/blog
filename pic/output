@@ -1,0 +1,27 @@
+nohup: 忽略输入
+开始执行了。
+PHP Notice:  Trying to get property of non-object in /home/wwwroot/common/pic/start.php on line 24
+
+Notice: Trying to get property of non-object in /home/wwwroot/common/pic/start.php on line 24
+查找上次中断时候的最后一个ID是
+PHP Notice:  Trying to get property of non-object in /home/wwwroot/common/pic/start.php on line 31
+
+Notice: Trying to get property of non-object in /home/wwwroot/common/pic/start.php on line 31
+PHP Notice:  Undefined property: Jief::$logPath in /home/wwwroot/common/pic/start.php on line 142
+
+Notice: Undefined property: Jief::$logPath in /home/wwwroot/common/pic/start.php on line 142
+PHP Notice:  Undefined property: Jief::$logPath in /home/wwwroot/common/pic/start.php on line 145
+
+Notice: Undefined property: Jief::$logPath in /home/wwwroot/common/pic/start.php on line 145
+PHP Warning:  file_put_contents(): Filename cannot be empty in /home/wwwroot/common/pic/start.php on line 145
+
+Warning: file_put_contents(): Filename cannot be empty in /home/wwwroot/common/pic/start.php on line 145
+PHP Notice:  Undefined property: Jief::$logPath in /home/wwwroot/common/pic/start.php on line 142
+
+Notice: Undefined property: Jief::$logPath in /home/wwwroot/common/pic/start.php on line 142
+PHP Notice:  Undefined property: Jief::$logPath in /home/wwwroot/common/pic/start.php on line 145
+
+Notice: Undefined property: Jief::$logPath in /home/wwwroot/common/pic/start.php on line 145
+PHP Warning:  file_put_contents(): Filename cannot be empty in /home/wwwroot/common/pic/start.php on line 145
+
+Warning: file_put_contents(): Filename cannot be empty in /home/wwwroot/common/pic/start.php on line 145

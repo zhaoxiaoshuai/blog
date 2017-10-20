@@ -50,7 +50,7 @@
                         <td><input name="more[]" type="checkbox" value="{$v['id']}"></td>
                         <td>{$v['id']}</td>
                         <td>{$v['username']}</td>
-                        <td><a href="javascript:;" onClick="picture_show('{$v[\'name\']}图库','{:U(\'/admin/photo/view\')}','{$v[\'id\']}')"><img class="picture-thumb" src="//{:C('PHOTO_UPLOADS_PATH'),$v[cid]?($v['path']?$v['path']:C('DEFAULT_PHOTO')):C('DEFAULT_PHOTO')}"></a></td>
+                        <td><a href="javascript:;" onClick="picture_show('{$v[\'name\']}图库','{:U(\'/admin/photo/view\')}','{$v[\'id\']}')"><img class="picture-thumb" src="//{:C('PHOTO_UPLOADS_PATH'),$v[cid]?($v['path']?$v['path']:C('PIC_UPLOAD_PATH').C('DEFAULT_PHOTO')):C('PIC_UPLOAD_PATH').C('DEFAULT_PHOTO')}"></a></td>
                         <td class="text-l"><a class="maincolor" href="javascript:;" onClick="picture_show('{$v[\'name\']}图库','{:U(\'/admin/photo/view\')}','{$v[\'id\']}')">{$v['name']}</a></td>
                         <td>{$v['description']}</td>
                         <td>{$v['utime']|date='Y-m-d H:i:s',###}</td>

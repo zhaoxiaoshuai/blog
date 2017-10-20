@@ -74,7 +74,7 @@ class CommonController extends Controller {
         $data['path'] = $info['savepath'].$info['savename'];
         $data['ctime'] = time();
         $data['pid'] = I('pid');
-        $data['comment'] = I('comment');
+        $data['comment'] = I('comment','1');
 //        print_r($data);die;
         $res = $d -> add($data);
         if(!$res)
@@ -95,7 +95,14 @@ class CommonController extends Controller {
         $up = new \Think\Upload();
         $up -> MazSize = 2 * 1024 * 1024;
         $up -> exts = array('jpg', 'gif', 'png', 'jpeg');
-        $up -> rootPath = C('PIC_UPLOAD_PATH');
+        $up -> rootPath = THINK_PATH.'..'.C('UPLOAD_PATH');
+        $up -> savePath = $path;
+        // 开启子目录保存 并以日期（格式为Ymd）为子目录
+        $upload->autoSub = true;
+        $upload->subName = array(
+            'date',
+            'Ymd'
+        );
 //        上传方法
         $info   =   $up->upload();
         if($info)
@@ -108,5 +115,23 @@ class CommonController extends Controller {
                 'status' => 1,
                 'info' => $up -> getError()
             );
+    }
+
+    public function markdown_pic()
+    {
+        $info   =   $this -> uploads(C('MD_PIC_UPLOAD_PATH'), array('jpg', 'gif', 'png', 'jpeg'), 2 * 1024 *1024);
+//        失败
+        if($info['status'])
+            $this -> ajaxReturn(array(
+                'success' => 0,
+                'message' => $info['info']
+            ));
+        $f = $info['info']['editormd-image-file'];
+        $path = C('UPLOAD_PATH').$f['savepath'].$f['savename'];
+        $this -> ajaxReturn(array(
+                'success' => 1,
+                'message' => '上传成功',
+                'url' => $path,
+            ));
     }
 }

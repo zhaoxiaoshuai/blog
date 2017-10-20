@@ -1,8 +1,27 @@
 <?php
 namespace Home\Controller;
-use Think\Controller;
-class IndexController extends Controller {
+
+class IndexController extends CommonController {
     public function index(){
-        $this->show('<style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} body{ background: #fff; font-family: "微软雅黑"; color: #333;font-size:24px} h1{ font-size: 100px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.8em; font-size: 36px } a,a:hover{color:blue;}</style><div style="padding: 24px 48px;"> <h1>:)</h1><p>欢迎使用 <b>ThinkPHP</b>！</p><br/>版本 V{$Think.version}</div><script type="text/javascript" src="http://ad.topthink.com/Public/static/client.js"></script><thinkad id="ad_55e75dfae343f5a1"></thinkad><script type="text/javascript" src="http://tajs.qq.com/stats?sId=9347272" charset="UTF-8"></script>','utf-8');
+        $this -> display();
+    }
+
+    public function article()
+    {
+        $re = D('Article')
+            -> where(array('aststus' => '2'))
+            -> relation(array('cate'))
+            -> order('utime desc')
+            -> page(I('get.p', 1))
+            -> limit(5)
+            -> select();
+        $re = array_map(function ($v){
+            $v['utime'] = date('Y-m-d H:i:s', $v['utime']);
+            return $v;
+        }, $re);
+        $count      = D('Article') -> where(array('aststus' => '2')) -> count();// 查询满足要求的总记录数
+        $Page       = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数
+        $show       = $Page->show();// 分页显示输出
+        $this -> ajaxReturn(array('html' => $re, 'page' => $show));
     }
 }

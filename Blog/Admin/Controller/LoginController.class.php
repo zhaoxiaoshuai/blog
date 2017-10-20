@@ -45,16 +45,15 @@ class LoginController extends Controller {
             ]);
         }
         //验证用户是否存在
-        $count = $users->where('username='.'\''.$data['username'].'\'')->count();
+        $user = $users->where('username='.'\''.$data['username'].'\'')->find();
 //        dump(!$count);die;
-        if(!$count){
+        if(!$user){
             $this->ajaxReturn([
                 'status' => 403,
                 'msg' => '用户名不存在',
             ]);
         }
         //验证密码
-        $user = $users->where('username='.'\''.$data['username'].'\'')->find();
         $res = cryptcheck($data['password'],$user['password']);
         if(!$res){
             $this->ajaxReturn([
@@ -63,6 +62,8 @@ class LoginController extends Controller {
             ]);
         }
         session('admin',$user);
+        // 登陆成功 更新登陆时间字段
+        $users -> save(array( 'id' => $user['id'], 'lasttime' => time() ));
         $this->ajaxReturn([
             'status' => 0,
             'msg' => '登陆成功',

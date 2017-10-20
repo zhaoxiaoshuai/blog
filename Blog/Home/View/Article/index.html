@@ -1,0 +1,122 @@
+<extend name="Layout:index"/>
+
+<block name="content-wrap">
+    <div class="content-wrap">
+            <div class="content">
+                <header class="article-header">
+                    <h1 class="article-title"><a href="__SELF__">{$data.title}</a></h1>
+                    <div class="article-meta">
+                        <span class="item article-meta-time">
+                            <time class="time" data-toggle="tooltip" data-placement="bottom" title="时间：{$data['utime'] |date='Y-m-d',###}">
+                                <i class="glyphicon glyphicon-time"></i> {$data['utime'] |date='Y-m-d',###}
+                            </time>
+                        </span>
+                        <span class="item article-meta-source" data-toggle="tooltip" data-placement="bottom" title="来源：{$data['is_admin']?$data['admin']:$data['username']}"><i class="glyphicon glyphicon-globe"></i> {$data['is_admin']?$data['admin']:$data['username']}</span>
+                        <span class="item article-meta-category" data-toggle="tooltip" data-placement="bottom" title="栏目：{$data.cate}"><i class="glyphicon glyphicon-list"></i> <a href="program" title="">{$data.cate}</a></span>
+                        <span class="item article-meta-views" data-toggle="tooltip" data-placement="bottom" title="查看：{$data.visit}"><i class="glyphicon glyphicon-eye-open"></i> 共{$data.visit}人围观</span>
+                        <span class="item article-meta-comment" data-toggle="tooltip" data-placement="bottom" title="评论：{$data.comment_count}"><i class="glyphicon glyphicon-comment"></i> {$data.comment_count}个不明物体</span>
+                    </div>
+                </header>
+                <article class="article-content">
+                    <p><img data-original="images/banner/banner_03.jpg" src="__PUBLIC__/static/images/banner/banner_03.jpg" alt="" /></p>
+                    <div id="prview">
+                        <textarea id="tmp" style="display: none;">{$data.content}</textarea>
+                    </div>
+                    <p class="article-copyright hidden-xs">未经允许不得转载：<a href="/">异清轩博客</a> » <a href="__SELF__">{$data.title}</a></p>
+                </article>
+                <div class="article-tags">标签：<a href="{:U('cate')}?name={$data.cate}" rel="tag">{$data.cate}</a></div>
+                <div class="relates">
+                    <div class="title">
+                        <h3>相关推荐</h3>
+                    </div>
+                    <ul>
+                        <li><a href="article.html">php如何判断一个日期的格式是否正确</a></li>
+                        <li><a href="article.html">php如何判断一个日期的格式是否正确</a></li>
+                        <li><a href="article.html">php如何判断一个日期的格式是否正确</a></li>
+                        <li><a href="article.html">php如何判断一个日期的格式是否正确</a></li>
+                        <li><a href="article.html">php如何判断一个日期的格式是否正确</a></li>
+                        <li><a href="article.html">php如何判断一个日期的格式是否正确</a></li>
+                        <li><a href="article.html">php如何判断一个日期的格式是否正确</a></li>
+                        <li><a href="article.html">php如何判断一个日期的格式是否正确</a></li>
+                    </ul>
+                </div>
+                <div class="title" id="comment">
+                    <h3>评论 <small>抢沙发</small></h3>
+                </div>
+                <!--<div id="respond">
+                  <div class="comment-signarea">
+                    <h3 class="text-muted">评论前必须登录！</h3>
+                    <p> <a href="javascript:;" class="btn btn-primary login" rel="nofollow">立即登录</a> &nbsp; <a href="javascript:;" class="btn btn-default register" rel="nofollow">注册</a> </p>
+                    <h3 class="text-muted">当前文章禁止评论</h3>
+                  </div>
+                </div>-->
+                <div id="respond">
+                    <form action="" method="post" id="comment-form">
+                        <div class="comment">
+                            <div class="comment-title"><img class="avatar" src="__PUBLIC__/static/images/icon/icon.png" alt="" /></div>
+                            <div class="comment-box">
+                                <textarea placeholder="您的评论可以一针见血" name="comment" id="comment-textarea" cols="100%" rows="3" tabindex="1" ></textarea>
+                                <div class="comment-ctrl"> <span class="emotion"><img src="__PUBLIC__/static/images/face/5.png" width="20" height="20" alt="" />表情</span>
+                                    <div class="comment-prompt"> <i class="fa fa-spin fa-circle-o-notch"></i> <span class="comment-prompt-text"></span> </div>
+                                    <input type="hidden" value="1" class="articleid" />
+                                    <button type="submit" name="comment-submit" id="comment-submit" tabindex="5" articleid="1">评论</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="postcomments">
+                    <ol class="commentlist">
+                        <li class="comment-content"><span class="comment-f">#1</span>
+                            <div class="comment-avatar"><img class="avatar" src="__PUBLIC__/static/images/icon/icon.png" alt="" /></div>
+                            <div class="comment-main">
+                                <p>来自<span class="address">河南郑州</span>的用户<span class="time">(2016-01-06)</span><br />
+                                    这是匿名评论的内容这是匿名评论的内容，这是匿名评论的内容这是匿名评论的内容这是匿名评论的内容这是匿名评论的内容这是匿名评论的内容这是匿名评论的内容。</p>
+                            </div>
+                        </li>
+                    </ol>
+
+                    <div class="quotes"><span class="disabled">首页</span><span class="disabled">上一页</span><a class="current">1</a><a href="">2</a><span class="disabled">下一页</span><span class="disabled">尾页</span></div>
+                </div>
+            </div>
+        </div>
+</block>
+
+<block name="js">
+    <script src="__PUBLIC__/mediter/examples/js/jquery.min.js"></script>
+    <script src="__PUBLIC__/mediter/lib/marked.min.js"></script>
+    <script src="__PUBLIC__/mediter/lib/prettify.min.js"></script>
+    <script src="__PUBLIC__/mediter/lib/raphael.min.js"></script>
+    <script src="__PUBLIC__/mediter/lib/underscore.min.js"></script>
+    <script src="__PUBLIC__/mediter/lib/sequence-diagram.min.js"></script>
+    <script src="__PUBLIC__/mediter/lib/flowchart.min.js"></script>
+    <script src="__PUBLIC__/mediter/lib/jquery.flowchart.min.js"></script>
+    <script src="__PUBLIC__/mediter/editormd.js"></script>
+    <script>
+        $(function() {
+            var test1 = editormd.markdownToHTML("prview", {
+//                markdown        : markdown ,//+ "\r\n" + $("#append-test").text(),
+                //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
+                htmlDecode      : "style,script,iframe",  // you can filter tags decode
+                previewTheme : "dark",
+                //toc             : false,
+                tocm            : true,    // Using [TOCM]
+                //tocContainer    : "#custom-toc-container", // 自定义 ToC 容器层
+                //gfm             : false,
+                //tocDropdown     : true,
+                // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
+                emoji           : true,
+                taskList        : true,
+                tex             : true,  // 默认不解析
+                flowChart       : true,  // 默认不解析
+                sequenceDiagram : true,  // 默认不解析
+            });
+            console.log(test1);
+        });
+    </script>
+</block>
+
+<block name="css">
+    <link rel="stylesheet" href="__PUBLIC__/mediter/css/editormd.preview.min.css">
+<!--    <link rel="stylesheet" href="__PUBLIC__/mediter/examples/css/style.css" />-->
+</block>
