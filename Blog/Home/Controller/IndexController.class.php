@@ -13,10 +13,22 @@ class IndexController extends CommonController {
             -> relation(array('cate'))
             -> order('utime desc')
             -> page(I('get.p', 1))
-            -> limit(5)
+            -> limit(5) -> field(array(
+                'id',
+                'uid',
+                'cid',
+                'title',
+                'content',
+                'is_admin',
+                'utime',
+                'comment',
+                'visit',
+                'comment_count',
+            ))
             -> select();
         $re = array_map(function ($v){
             $v['utime'] = date('Y-m-d H:i:s', $v['utime']);
+            $v['content'] =  htmlspecialchars_decode($v['content']);
             return $v;
         }, $re);
         $count      = D('Article') -> where(array('aststus' => '2')) -> count();// 查询满足要求的总记录数

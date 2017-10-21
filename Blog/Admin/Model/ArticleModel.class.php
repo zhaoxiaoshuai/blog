@@ -46,9 +46,9 @@ class ArticleModel extends RelationModel
         'detail' => array(
             'mapping_type'  => self::HAS_ONE,
             'class_name'    => 'ArticleDetail',
-            'foreign_key'   => 'content_id',
+            'foreign_key'   => 'article_id',
             'mapping_fields' => 'content content_detail',
-            'mapping_key' => 'article_id',
+            'mapping_key' => 'content_id',
             'as_fields' => 'content_detail',
             ),
         );
