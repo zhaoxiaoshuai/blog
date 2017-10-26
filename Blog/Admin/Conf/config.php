@@ -9,6 +9,7 @@ return array(
         '文章管理' => array(
             '文章列表' => '/admin/article/list',
             '添加文章' => '/admin/article/add',
+            '文章回收站' => '/admin/article/deleted',
             '分类添加' => '/admin/cate/index',
             '分类编辑' => '/admin/cate/edit',
         ),

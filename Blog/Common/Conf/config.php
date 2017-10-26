@@ -49,7 +49,7 @@ return array(
     ),
     'ARTICLE_STATUS' => array(
         1 => '未发布',
-        '发布',
+        '已发布',
         '删除'
     ),
 );

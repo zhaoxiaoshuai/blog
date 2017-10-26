@@ -5,7 +5,7 @@
             $.get("{:U('index/hotarticle')}", function (data){
                 var ul = '<ul>';
                 $.each(data, function (k, v){
-                    var str = '<li><a>';
+                    var str = '<li><a href="'+ v.url +'">';
                     str += '<span class="thumbnail">\n' +
                         '       <img class="thumb" data-original="__PUBLIC__/static/images/excerpt.jpg" src="__PUBLIC__/static/images/occupying.png" alt="">\n' +
                         '   </span><span class="text">' + v.title + '</span>\n' +
@@ -16,6 +16,11 @@
                 });
                 ul += '</ul>';
                 $('.widget.widget_hot').append(ul);
+                try{
+                    window.loadImg();
+                }catch(e){
+                    console.log('不正常。', e);
+                }
                 $('#hotarticle').remove();
             });
         });

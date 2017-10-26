@@ -31,11 +31,12 @@
             </article>
             <div class="title">
                 <h3>最新发布</h3>
-                <div class="more"><a href="">PHP</a><a href="">JavaScript</a><a href="">EmpireCMS</a><a href="">Apache</a><a href="">MySQL</a></div>
+                <div class="more">
+                    <volist name='cate' id='vo'>
+                        <a href="">{$vo.name}</a>
+                    </volist>
+                </div>
             </div>
-
-            <nav class="pagination" style="display: none;">
-            </nav>
         </div>
     </div>
 </block>
@@ -44,24 +45,12 @@
     <script id="article">
         $(function (){
             $.get("{:U('index/article')}", function (data) {
-                console.log(data);
-                var str = '';
-                $.each(data.html, function (k, v){
-                    str += '<article class="excerpt excerpt-1">\n' +
-                        '         <a class="focus" href="article.html?name='+ v.id +'" title=""><img class="thumb" data-original="__PUBLIC__/static/images/excerpt.jpg" src="__PUBLIC__/static/images/occupying.png" alt=""></a>\n' +
-                        '         <header><a class="cat" href="program">' + v.cate + '<i></i></a>\n' +
-                        '             <h2><a href="article.html?name='+ v.id +'" title="">' + v.title + '</a></h2>\n' +
-                        '         </header>\n' +
-                        '         <p class="meta">\n' +
-                        '             <time class="time"><i class="glyphicon glyphicon-time"></i> ' + v.utime + '</time>\n' +
-                        '         <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共'+ v.visit +'围观</span> <a class="comment" href="article.html#comment"><i class="glyphicon glyphicon-comment"></i> ' + v.comment_count + '个不明物体</a></p>\n' +
-                        '       <p class="note">' + v.content + '</p>\n' +
-                        '   </article>';
-                });
-                $('div.title').after(str);
+                $('div.title').after($(data).children(0));
                 $('nav.pagination').append($(data.page));
 
-//                $('#article').remove();
+                window.loadImg();
+
+                $('#article').remove();
             });
         });
     </script>

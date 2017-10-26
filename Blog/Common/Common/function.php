@@ -129,3 +129,10 @@ function redi($url,$k ,$msg){
     flu($k,$msg);
     redirect($url);
 }
+
+function getDuBa(){
+    $date = date('Y-m-d', rand(1325347200,time()));
+    $url = 'http://open.iciba.com/dsapi/?date=';
+    $data = file_get_contents($url.$date);
+    return json_decode($data, 1);
+}

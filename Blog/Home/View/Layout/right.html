@@ -42,10 +42,27 @@
     </div>
     <div class="widget widget_sentence">
         <h3>每日一句</h3>
+        <php> $__one = getDuBa()</php>
+        <php> $__week = array( '0' => '星期日', '1' => '星期一', '2' => '星期二', '3' => '星期三', '4' => '星期四', '5' => '星期五', '6' => '星期六',)</php>
         <div class="widget-sentence-content">
-            <h4>2016年01月05日星期二</h4>
-            <p>Do not let what you cannot do interfere with what you can do.<br />
-                别让你不能做的事妨碍到你能做的事。（John Wooden）</p>
+            <h4>{:date('Y年m月d日 H时i分')} {$__week[date('N')]}</h4>
+            <p>{$__one.content}<br />
+                {$__one.note}
+                <audio src="{$__one.tts}" autoplay></audio>
+                <script>
+                    $('audio').on('ended', function (){
+                        var obj = this;
+                        if(obj.f){
+                            obj.src = '';
+                            return false;
+                        }
+                        console.log('触发。', obj.duration);
+                        obj.src='http://fanyi.baidu.com/gettts?lan=zh&&spd=5&source=web&text={$__one.note}';
+                        obj.play();
+                        obj.f = true;
+                    });
+                </script>
+            </p>
         </div>
     </div>
     <include file='Layout/hotarticle'/>

@@ -3,7 +3,7 @@ namespace Admin\Controller;
 use Think\Controller;
 use Admin\Model\AdminModel;
 
-class AdminController extends Controller {
+class AdminController extends CommonController {
 
     /**
      * 显示添加页面

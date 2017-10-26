@@ -83,7 +83,7 @@
 </block>
 
 <block name="js">
-    <script src="__PUBLIC__/mediter/examples/js/jquery.min.js"></script>
+    <!-- <script src="__PUBLIC__/mediter/examples/js/jquery.min.js"></script> -->
     <script src="__PUBLIC__/mediter/lib/marked.min.js"></script>
     <script src="__PUBLIC__/mediter/lib/prettify.min.js"></script>
     <script src="__PUBLIC__/mediter/lib/raphael.min.js"></script>
@@ -95,9 +95,12 @@
     <script>
         $(function() {
             var test1 = editormd.markdownToHTML("prview", {
+            // var test1 = editormd("prview", {
 //                markdown        : markdown ,//+ "\r\n" + $("#append-test").text(),
-                //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
+                htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
                 htmlDecode      : "style,script,iframe",  // you can filter tags decode
+				path : '/Public/mediter/lib/',
+				width: '100%',
                 previewTheme : "dark",
                 //toc             : false,
                 tocm            : true,    // Using [TOCM]
@@ -111,7 +114,6 @@
                 flowChart       : true,  // 默认不解析
                 sequenceDiagram : true,  // 默认不解析
             });
-            console.log(test1);
         });
     </script>
 </block>

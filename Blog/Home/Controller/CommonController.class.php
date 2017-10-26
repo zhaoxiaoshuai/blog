@@ -19,13 +19,14 @@ class CommonController extends Controller
     {
 //        前台公共部分绑定数据
         $re = D('Article')
-            -> where(array('aststus' => '2'))
+            -> where(array('astatus' => '2'))
             -> relation(array('cate'))
             -> order(array('visit' => 'desc', 'comment_count' => 'desc'))
             -> limit(5)
             -> select();
         $re = array_map(function ($v){
-            $v['utime'] = date('Y-m-d H:i:s', $v['utime']);
+            $v['utime'] = date('Y-m-d', $v['utime']);
+			$v['url'] = U('article/index?name='.$v['id']);
             return $v;
         }, $re);
         $this -> ajaxReturn($re);

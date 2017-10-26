@@ -39,23 +39,21 @@
                 </tr>
                 </thead>
                 <tbody>
-				{//:dump(C('STATUS_ICON'))}
                     <volist name="data" id="vo"  >
                         <tr class="text-c">
                             <td><input type="checkbox" value="" name=""></td>
                             <td>{$vo.id}</td>
-                            <td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_show('{$vo.title} 内容预览','{:U('article/show?name='.$vo['id'])}')" title="{$vo.title} 内容预览">{$vo.title}</u></td>
+                            <td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_edit('查看','article-zhang.html','{$vo.id}')" title="查看">{$vo.title}</u></td>
                             <td>{$vo['is_admin'] ? $vo['admin'] : $vo['username']}{$vo['is_admin'] ? '（管理员）' : '' }</td>
                             <td>{$vo.cate}</td>
                             <td>{$vo.ctime|date="Y-m-d H:i:s",###}</td>
                             <td>{$vo.utime|date="Y-m-d H:i:s",###}</td>
                             <td>{$vo.visit}</td>
                             <td class="td-status">
-								<span class="label {:C('STATUS_ICON')[$vo['astatus']]} radius">{$status[$vo['astatus']]}</span>
+                                <span class="label label-success radius">{$status[$vo['astatus']] }</span>
                             </td>
                             <td class="f-14 td-manage">
-                                <a style="text-decoration:none" onClick="{$vo['astatus']==2?'article_stop':'article_start'}(this,'{$vo.id}')" href="javascript:;"><i class="Hui-iconfont">{$vo['astatus']==2?'&#xe6de;':'&#xe603;'}</i></a>
-                                <a style="text-decoration:none" class="ml-5" onClick="article_edit('文章编辑','{:U('article/edit?name='.$vo['id'])}')" href="javascript:void(0);" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
+                                <a style="text-decoration:none" onClick="article_rec(this,'{$vo.id}')" href="javascript:;" title="恢复"><i class="Hui-iconfont"></i></a>
                                 <a style="text-decoration:none" class="ml-5" onClick="article_del(this,'{$vo.id}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
                             </td>
                         </tr>
@@ -64,6 +62,7 @@
             </table>
         </div>
     </div>
+
 </block>
 <block name="js">
     <script type="text/javascript" src="__PUBLIC__/lib/My97DatePicker/4.8/WdatePicker.js"></script>
@@ -88,101 +87,36 @@
             });
             layer.full(index);
         }
-        /*资讯-编辑*/
-        function article_edit(title,url,id,w,h){
-            var index = layer.open({
-                type: 2,
-                title: title,
-                content: url
-            });
-            layer.full(index);
-        }
-        /*资讯-预览*/
-        function article_show(title,url,id,w,h){
-            var index = layer.open({
-                type: 2,
-                title: title,
-                content: url
-            });
-            layer.full(index);
-        }
         /*资讯-删除*/
         function article_del(obj,id){
             layer.confirm('确认要删除吗？',function(index){
                 $.ajax({
                     type: 'POST',
-                    url: '{:U("Article/del")}',
+                    url: '{:U("Article/delete")}',
                     dataType: 'json',
 					data:{name:id},
                     success: function(data){
-                        layer.msg(data.msg,{icon:1, time:1000});
+                        layer.msg(data.msg,{icon:1,time:1000});
 						if(data.status){
 							return false;
 						}
                         $(obj).parents("tr").remove();
                     },
                     error:function(data) {
-                        console.log(data.msg);
+                        layer.msg('网络出问题了。', {icon:1,time:1000});
                     },
                 });
             });
         }
-
-        /*资讯-审核*/
-        function article_shenhe(obj,id){
-            layer.confirm('审核文章？', {
-                    btn: ['通过','不通过','取消'],
-                    shade: false,
-                    closeBtn: 0
-                },
-                function(){
-                    $(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="article_start(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-                    $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
-                    $(obj).remove();
-                    layer.msg('已发布', {icon:6,time:1000});
-                },
-                function(){
-                    $(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="article_shenqing(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-                    $(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">未通过</span>');
-                    $(obj).remove();
-                    layer.msg('未通过', {icon:5,time:1000});
-                });
-        }
-        /*资讯-下架*/
-        function article_stop(obj,id){
-            layer.confirm('确认要下架吗？',function(index){
-				$.get("{:U('article/stop?')}?name="+id, function (data){
-					layer.msg(data.msg,{icon: data.status?5:6,time:1000});
-					if(data.status){
-						return false;
-					}
-					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="article_start(this,id)" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>');
-					$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已下架</span>');
-					$(obj).remove()
-				});;
-            });
-        }
-
-        /*资讯-发布*/
-        function article_start(obj,id){
-            layer.confirm('确认要发布吗？',function(index){
-				$.get("{:U('article/start?')}?name="+id, function (data){
-					layer.msg(data.msg,{icon: data.status?5:6,time:1000});
-					if(data.status){
-						return false;
-					}
-					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="article_stop(this,id)" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
-					$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
-					$(obj).remove();
-				});
-            });
-        }
-        /*资讯-申请上线*/
-        function article_shenqing(obj,id){
-            $(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">待审核</span>');
-            $(obj).parents("tr").find(".td-manage").html("");
-            layer.msg('已提交申请，耐心等待审核!', {icon: 1,time:2000});
-        }
-
+		
+		function article_rec (obj, id) {
+			$.get('{"article/rec"}?name='+id,function (data){
+				layer.msg(data.msg,{icon:1,time:1000});
+				if(data.status){
+					return false;
+				}
+				$(obj).parents("tr").remove();
+			});
+		}
     </script>
 </block>

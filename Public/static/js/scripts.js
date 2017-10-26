@@ -99,14 +99,18 @@ $("#gotop").click(function () {
 });
  
 //图片延时加载
-$("img.thumb").lazyload({
-    placeholder: "/Public/static/images/occupying.png",
-    effect: "fadeIn"
-});
-$(".single .content img").lazyload({
-    placeholder: "/Public/static/images/occupying.png",
-    effect: "fadeIn"
-});
+(function (){
+    function e(){
+        $("img.thumb").lazyload({
+            placeholder: "/Public/static/images/occupying.png",
+            effect: "fadeIn"
+        });
+    }
+    // console.log(0);
+    e();
+    window.loadImg = e;
+}());
+
  
 //IE6-9禁止用户选中文本
 document.body.onselectstart = document.body.ondrag = function () {
@@ -128,6 +132,7 @@ jQuery.ias({
 	loader: '<div class="pagination-loading"><img src="/Public/static/images/loading.gif" /></div>',
 	triggerPageThreshold: 5,
 	onRenderComplete: function() {
+        console.log(arguments);
 		$('.excerpt .thumb').lazyload({
 			placeholder: '/Public/static/images/occupying.png',
 			threshold: 400
